@@ -20,7 +20,7 @@ func main() {
 	}
 	log.Log.Infof("connected to database")
 
-	ws := web.New(db)
+	ws := web.New(db, viper.GetStringSlice("ws.ipwhitelist"))
 	addr := viper.GetString("ws.addr")
 	log.Log.Infof("web server running on %s", addr)
 	if err = ws.ListenAndServeBlocking(addr); err != nil {

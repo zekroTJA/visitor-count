@@ -1,17 +1,9 @@
 package web
 
 import (
-	"time"
-
 	"github.com/fasthttp/router"
 	"github.com/valyala/fasthttp"
-	"github.com/zekroTJA/timedmap"
 	"github.com/zekroTJA/visitor-count/internal/database"
-)
-
-const (
-	ipmapCleanupDuration = 10 * time.Minute
-	ipmapValueLifetime   = 24 * time.Hour
 )
 
 type WebServer struct {
@@ -20,14 +12,14 @@ type WebServer struct {
 
 	db database.Database
 
-	ipmap *timedmap.TimedMap
+	ipwl []string
 }
 
-func New(db database.Database) *WebServer {
+func New(db database.Database, ipwl []string) *WebServer {
 	ws := new(WebServer)
 
 	ws.db = db
-	ws.ipmap = timedmap.New(ipmapCleanupDuration)
+	ws.ipwl = ipwl
 	ws.router = router.New()
 	ws.server = &fasthttp.Server{
 		Handler: ws.router.Handler,

@@ -27,10 +27,12 @@ func (ws *WebServer) handlerSvg(ctx *fasthttp.RequestCtx) {
 		return
 	}
 
-	err = ws.db.UpdateUserCount(userName, 1)
-	if err != nil {
-		sendError(ctx, err.Error(), 500)
-		return
+	if ws.isWhitelistedAddress(ctx) {
+		err = ws.db.UpdateUserCount(userName, 1)
+		if err != nil {
+			sendError(ctx, err.Error(), 500)
+			return
+		}
 	}
 
 	data := svg.GetFormattedSVG(count + 1)
