@@ -1,0 +1,21 @@
+# Web Server configuration
+ws:
+  # The expose address + port of the web server
+  addr: '0.0.0.0:8080'
+  # An optional white list of origin IP addresses.
+  # If a non-whitelisted address is accessing the 
+  # resource, the count will not be incremented.
+  # If this is not set, all origins are allowed to
+  # count up.
+  ipwhitelist:
+    - '140.82.115.*' # This is the address space of the GitHub CDN crawlers
+
+# Database configuration
+db:
+  # The connection DNS to the (mariadb/mysql) database
+  dsn: '<username>:<password>!@tcp(<address>)/<database>?collation=utf8mb4_unicode_ci&parseTime=true'
+
+# Logging preferences
+log:
+  # Log level
+  level: 6
