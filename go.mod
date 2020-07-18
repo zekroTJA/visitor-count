@@ -9,5 +9,4 @@ require (
 	github.com/op/go-logging v0.0.0-20160315200505-970db520ece7
 	github.com/spf13/viper v1.7.0
 	github.com/valyala/fasthttp v1.15.1
-	github.com/zekroTJA/timedmap v1.1.2
 )

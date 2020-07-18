@@ -1,6 +1,8 @@
 package web
 
 import (
+	"strings"
+
 	"github.com/valyala/fasthttp"
 	"github.com/zekroTJA/visitor-count/internal/log"
 )
@@ -13,7 +15,8 @@ func (ws *WebServer) isWhitelistedAddress(ctx *fasthttp.RequestCtx) bool {
 	addr := getIPAddr(ctx)
 
 	for _, v := range ws.ipwl {
-		if v == addr {
+		wci := strings.Index(v, "*")
+		if v == addr || (wci >= 0 && strings.HasPrefix(addr, v[:wci])) {
 			return true
 		}
 	}
